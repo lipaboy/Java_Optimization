@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * Hello world!
  *
  */
-public class App 
+public class Lab4
 {
     public static class Calculator {
 
