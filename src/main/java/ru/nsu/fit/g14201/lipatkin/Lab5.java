@@ -37,6 +37,7 @@ public class Lab5 {
     public static void main( String[] args )
     {
         HashSet<Integer> plenty = new HashSet<Integer>();
+
         Set newPlenty = setLogging(plenty);
         newPlenty.add(5);
         newPlenty.contains(5);

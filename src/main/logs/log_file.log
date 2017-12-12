@@ -1,0 +1,71 @@
+2017-12-11 18:05:48 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 989 Mb
+2017-12-11 18:06:31 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 43339 ms[0m
+2017-12-11 18:06:31 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 671 ms[0m
+-XX:+UseSerialGC -Xms64m -Xmx1G
+2017-12-11 18:07:22 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 989 Mb
+2017-12-11 18:08:07 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 44859 ms
+2017-12-11 18:08:07 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 765 ms
+-XX:+UseSerialGC -Xms64m -Xmx64m
+2017-12-11 18:08:45 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 61 Mb
+2017-12-11 18:09:24 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 39125 ms
+2017-12-11 18:09:24 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 593 ms
+parallel 64m heap
+2017-12-11 18:10:58 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 910 Mb
+2017-12-11 18:11:31 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 32495 ms
+2017-12-11 18:11:31 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 2013 ms
+parallel 256m heap
+2017-12-11 18:13:12 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 910 Mb
+2017-12-11 18:13:43 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 31013 ms
+2017-12-11 18:13:43 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 3011 ms
+mark-and-sweep (without parameters)
+2017-12-11 18:15:42 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1007 Mb
+2017-12-11 18:16:13 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 31138 ms
+2017-12-11 18:16:13 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 390 ms
+TargetSurvivorRatio=50 MaxTenuringThreshold=4
+2017-12-11 18:17:49 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1007 Mb
+2017-12-11 18:18:21 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 32276 ms
+2017-12-11 18:18:21 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 1872 ms
+TargetSurvivorRatio=90  MaxTenuringThreshold=4
+2017-12-11 18:22:26 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1007 Mb
+2017-12-11 18:22:55 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 29594 ms
+2017-12-11 18:22:55 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 1186 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=8   SurvivorRatio=8
+2017-12-11 18:26:26 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1007 Mb
+2017-12-11 18:26:53 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 26442 ms
+2017-12-11 18:26:53 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 484 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=8 SurvivorRatio=12
+2017-12-11 18:27:51 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1012 Mb
+2017-12-11 18:28:17 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 26037 ms
+2017-12-11 18:28:17 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 327 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=8 SurvivorRatio=20
+2017-12-11 18:29:10 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1016 Mb
+2017-12-11 18:29:38 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 28657 ms
+2017-12-11 18:29:38 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 452 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=8 SurvivorRatio=15 CMSInitiatingOccupancyFraction=68
+2017-12-11 18:31:45 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:32:11 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 25709 ms
+2017-12-11 18:32:11 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 484 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=8 SurvivorRatio=15 CMSInitiatingOccupancyFraction=50
+2017-12-11 18:32:59 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:33:24 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 25335 ms
+2017-12-11 18:33:24 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 328 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=6 SurvivorRatio=15 CMSInitiatingOccupancyFraction=50
+2017-12-11 18:34:14 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:34:47 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 33087 ms
+2017-12-11 18:34:47 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 670 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=9 SurvivorRatio=15 CMSInitiatingOccupancyFraction=50
+2017-12-11 18:37:22 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:37:49 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 26668 ms
+2017-12-11 18:37:49 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 374 ms
+TargetSurvivorRatio=90 MaxTenuringThreshold=8 SurvivorRatio=15 CMSInitiatingOccupancyFraction=60
+2017-12-11 18:38:41 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:39:06 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 24991 ms
+2017-12-11 18:39:06 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 436 ms
+TargetSurvivorRatio=95 MaxTenuringThreshold=8 SurvivorRatio=15 CMSInitiatingOccupancyFraction=60
+2017-12-11 18:45:24 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:45:48 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 24055 ms
+2017-12-11 18:45:48 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 406 ms
+TargetSurvivorRatio=95 MaxTenuringThreshold=7 SurvivorRatio=15 CMSInitiatingOccupancyFraction=60
+2017-12-11 18:46:14 INFO  lipatkin.lab7.TestGCPause:177 - JVM Maxmem: 1014 Mb
+2017-12-11 18:46:38 INFO  lipatkin.lab7.TestGCPause:202 - 	Total run time: 23260 ms
+2017-12-11 18:46:38 INFO  lipatkin.lab7.TestGCPause:203 - 	Max GC pause: 437 ms
