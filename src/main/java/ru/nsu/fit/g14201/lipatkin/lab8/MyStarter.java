@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class MyStarter {
 
     static final int STRING_SIZE = 77;
-    private static final long __TOTAL_SIZE = 1024 * 2L;
+    private static final long __TOTAL_SIZE = 1024 * 1024 * 128L;
     private static final int LITTLE_SIZE = (int) __TOTAL_SIZE % 77;
     private static final int TOTAL_SIZE = (int) (__TOTAL_SIZE - LITTLE_SIZE);
 
