@@ -35,7 +35,7 @@ public class MyStarter {
         Files.deleteIfExists(Paths.get(outputPath));
         outputChannel = new RandomAccessFile(outputPath, "rw").getChannel();
 
-        sorter = new CombSorter(this);
+        sorter = new CombSorter(this, 1);
     }
 
     public void start() throws IOException {
