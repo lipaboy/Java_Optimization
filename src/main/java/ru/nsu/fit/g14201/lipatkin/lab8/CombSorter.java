@@ -63,14 +63,23 @@ public class CombSorter extends MySorter {
         // <threadCount, step>
         // TODO: you can optimize it (for cache locality property)
         log.debug(threadNum + " thread works, step = " + step);
-        for (int i = threadNum; i < step; i += threadCount) {
-            for (int j = i; j < MyStarter.TOTAL_STRINGS - step; j += step) {
+        //for (int i = threadNum; i < step; i += threadCount) {
+            int accumulator = threadNum;
+            int lastJ = threadNum;
+            for (int j = threadNum; j < MyStarter.TOTAL_STRINGS - step; ) {
                 if (compare(j, j + step) > 0) {
                     swap(j, j + step);
                 }
+                accumulator += threadCount;
+                if (accumulator >= step) {
+                    j = lastJ + step;
+                    lastJ += step;
+                    accumulator = threadNum;
+                }
+                else
+                    j += threadCount;
             }
-            //log.debug(threadNum + " thread works, iter = " + i);
-        }
+        //}
         try {
             barrier.await();
         } catch (InterruptedException | BrokenBarrierException e) {
