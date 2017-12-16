@@ -1,8 +1,8 @@
 package ru.nsu.fit.g14201.lipatkin.lab8;
 
 import org.apache.log4j.Logger;
-import ru.nsu.fit.g14201.lipatkin.lab7.TestGCPause;
 
+import java.nio.ByteBuffer;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.BrokenBarrierException;
@@ -11,14 +11,16 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * Created by castiel on 13.12.2017.
  */
-public class CombSorter extends MySorter {
+public class CombSorter extends ByteBufferSorter {
     static private final Logger log = Logger.getLogger(CombSorter.class.getName());
 
     private final CyclicBarrier barrier;
     private final int threadCount;
+    private final int TOTAL_STRINGS;
 
-    CombSorter(MyStarter starter, int threadCount) {
-        super(starter);
+    CombSorter(ByteBuffer sortBuffer, int stringSize, int totalSize, int threadCount) {
+        super(sortBuffer, stringSize, totalSize);
+        TOTAL_STRINGS = totalSize / stringSize;
 
         barrier = new CyclicBarrier(threadCount + 1);
         this.threadCount = threadCount;
@@ -33,7 +35,7 @@ public class CombSorter extends MySorter {
 
     private void sortParallel() {
         final float factorDecrease = 1.247f;
-        float step = (MyStarter.TOTAL_STRINGS / factorDecrease);
+        float step = (TOTAL_STRINGS / factorDecrease);
 
         for (; ; step /= factorDecrease) {
             int stepRounded = Math.round(step);
@@ -66,7 +68,7 @@ public class CombSorter extends MySorter {
         //for (int i = threadNum; i < step; i += threadCount) {
             int accumulator = threadNum;
             int lastJ = threadNum;
-            for (int j = threadNum; j < MyStarter.TOTAL_STRINGS - step; ) {
+            for (int j = threadNum; j < TOTAL_STRINGS - step; ) {
                 if (compare(j, j + step) > 0) {
                     swap(j, j + step);
                 }
@@ -89,7 +91,7 @@ public class CombSorter extends MySorter {
 
     void sortBySingle(int step) {
         if (step > 1) {
-            for (int j = 0; j < MyStarter.TOTAL_STRINGS - step; j++) {
+            for (int j = 0; j < TOTAL_STRINGS - step; j++) {
                 if (compare(j, j + step) > 0) {
                     swap(j, j + step);
                 }
@@ -98,7 +100,7 @@ public class CombSorter extends MySorter {
         else {
             for (; ; ) {
                 boolean swapped = false;
-                for (int j = 0; j < MyStarter.TOTAL_STRINGS - 1; j++) {
+                for (int j = 0; j < TOTAL_STRINGS - 1; j++) {
                     if (compare(j, j + 1) > 0) {
                         swap(j, j + 1);
                         swapped = true;

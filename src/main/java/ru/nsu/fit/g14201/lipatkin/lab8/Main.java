@@ -16,7 +16,7 @@ public class Main {
         }
 
         try {
-            new MyStarter(args[0], args[1]).start();
+            new MyStarter().start(args[0], args[1]);
         } catch (Exception e) {
             e.printStackTrace();
         }
