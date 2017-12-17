@@ -70,6 +70,7 @@ public class MyStarter {
             tempChannels.set(i, new RandomAccessFile(tempFilenames[i], "rw").getChannel());
 
             new CombSorter(buffer, STRING_SIZE, partitionSizes[i], threadCount).sort();
+            buffer.limit(partitionSizes[i]);
             tempChannels.get(i).write(buffer);
 
             currentPosition += partitionSizes[i];
@@ -133,8 +134,8 @@ public class MyStarter {
         outputChannel.close();
 
 
-        //for (int i = 0; i < PARTITION_COUNT; i++)
-            //Files.delete(Paths.get(tempFilenames[i]));
+        for (int i = 0; i < PARTITION_COUNT; i++)
+            Files.delete(Paths.get(tempFilenames[i]));
 
         System.out.println("Whole time = " + ChronoUnit.MILLIS.between(startTime, LocalTime.now()) + "ms.");
     }
