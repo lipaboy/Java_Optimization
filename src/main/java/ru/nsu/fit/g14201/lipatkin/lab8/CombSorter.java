@@ -44,13 +44,13 @@ public class CombSorter extends ByteBufferSorter {
                     int finalI = i;
                     new Thread(() -> sortByThread(finalI, stepRounded)).start();
                 }
-                log.debug("Before barrier");
+                //log.debug("Before barrier");
                 try {
                     barrier.await();
                 } catch (InterruptedException | BrokenBarrierException e) {
                     throw new RuntimeException(e);
                 }
-                log.debug("After barrier");
+                //log.debug("After barrier");
             }
             else {
                 sortBySingle(stepRounded);
@@ -64,7 +64,7 @@ public class CombSorter extends ByteBufferSorter {
     void sortByThread(int threadNum, int step) {
         // <threadCount, step>
         // TODO: you can optimize it (for cache locality property)
-        log.debug(threadNum + " thread works, step = " + step);
+        //log.debug(threadNum + " thread works, step = " + step);
         //for (int i = threadNum; i < step; i += threadCount) {
             int accumulator = threadNum;
             int lastJ = threadNum;
