@@ -20,25 +20,25 @@ public class MyStarter {
     static private final Logger log = Logger.getLogger(MyStarter.class.getName());
 
     static final int STRING_SIZE = 77;
-    private static final long __TOTAL_SIZE = //1024 * 1024 * 512L;
+    private static final long __TOTAL_SIZE = 1024 * 1024 * 512 * 4L - 2;
                                                 //100 *  STRING_SIZE;
-                                            1024;
+                                           // 1024;
     private static final int LITTLE_SIZE = (int) __TOTAL_SIZE % STRING_SIZE;
     private static final int TOTAL_SIZE = (int) (__TOTAL_SIZE - LITTLE_SIZE);
 
     static final int TOTAL_STRINGS = TOTAL_SIZE / STRING_SIZE;
-    private static final int PARTITION_COUNT = 2;
+    private static final int PARTITION_COUNT = 3;
     private int[] partitionSizes;
     private ArrayList<FileChannel> tempChannels;
     private String[] tempFilenames;
     {
         partitionSizes = new int[PARTITION_COUNT];
-        int mainPart = TOTAL_SIZE / PARTITION_COUNT;
-        int remainder = TOTAL_SIZE % PARTITION_COUNT;
+        int mainPart = TOTAL_STRINGS / PARTITION_COUNT;
+        int remainder = TOTAL_STRINGS % PARTITION_COUNT;
         for (int i = 0; i < PARTITION_COUNT; i++) {
-            partitionSizes[i] = mainPart;
+            partitionSizes[i] = mainPart * STRING_SIZE;
         }
-        partitionSizes[0] += remainder;
+        partitionSizes[0] += remainder * STRING_SIZE;
 
         tempChannels = new ArrayList<>(PARTITION_COUNT);
         tempFilenames = new String[PARTITION_COUNT];
@@ -53,28 +53,34 @@ public class MyStarter {
     public void start(String inputPath, String outputPath) throws IOException {
         LocalTime startTime = LocalTime.now();
         FileChannel outputChannel;
-        final RandomAccessFile inputFile = new RandomAccessFile(inputPath, "rw");
+        RandomAccessFile inputFile = new RandomAccessFile(inputPath, "rw");
+        FileChannel inputChannel = inputFile.getChannel();
 
         int currentPosition = 0;
 
+        ByteBuffer buffer = ByteBuffer.allocateDirect(partitionSizes[0]);
         for (int i = 0; i < partitionSizes.length; i++) {
 
-            MappedByteBuffer sortBuffer = inputFile.getChannel().map(FileChannel.MapMode.PRIVATE,
-                    currentPosition, partitionSizes[i]);
-
-            //inputFile.seek(currentPosition + partitionSizes[i]);
+            //MappedByteBuffer sortBuffer = inputFile.getChannel().map(FileChannel.MapMode.PRIVATE,
+              //      currentPosition, partitionSizes[i]);
+            inputChannel.read(buffer);
+            buffer.flip();
 
             Files.deleteIfExists(Paths.get(tempFilenames[i]));
             tempChannels.set(i, new RandomAccessFile(tempFilenames[i], "rw").getChannel());
 
-            new CombSorter(sortBuffer, STRING_SIZE, partitionSizes[i], 2).sort();
-            tempChannels.get(i).write(sortBuffer);
+            new CombSorter(buffer, STRING_SIZE, partitionSizes[i], 2).sort();
+            tempChannels.get(i).write(buffer);
 
             currentPosition += partitionSizes[i];
 
+            buffer.clear();
+            //inputFile.close();
+            //inputFile = new RandomAccessFile(inputPath, "rw");
         }
+        inputFile.close();
 
-        final int TEMP_CAPACITY = 10 * STRING_SIZE;
+        final int TEMP_CAPACITY = 100 * 1024 * STRING_SIZE;
         ArrayList<ByteBuffer> tempBuffers = new ArrayList<>(PARTITION_COUNT);
         for (int i = 0; i < PARTITION_COUNT; i++) {
             tempBuffers.add(null);
@@ -84,7 +90,7 @@ public class MyStarter {
             tempBuffers.get(i).flip();
         }
 
-        final int OUTBUF_CAPACITY = 10 * STRING_SIZE;
+        final int OUTBUF_CAPACITY = 100 * 1024 * STRING_SIZE;
         Files.deleteIfExists(Paths.get(outputPath));
         outputChannel = new RandomAccessFile(outputPath, "rw").getChannel();
         ByteBuffer outputBuf = ByteBuffer.allocate(OUTBUF_CAPACITY);
@@ -127,8 +133,8 @@ public class MyStarter {
         outputChannel.close();
 
 
-        //for (int i = 0; i < PARTITION_COUNT; i++)
-            //Files.delete(Paths.get(tempFilenames[i]));
+        for (int i = 0; i < PARTITION_COUNT; i++)
+            Files.delete(Paths.get(tempFilenames[i]));
 
         System.out.println("Whole time = " + ChronoUnit.MILLIS.between(startTime, LocalTime.now()) + "ms.");
     }
