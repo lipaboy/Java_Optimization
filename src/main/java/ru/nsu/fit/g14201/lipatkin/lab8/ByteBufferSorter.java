@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
  * Created by castiel on 13.12.2017.
  */
 public abstract class ByteBufferSorter {
-    MyStarter starter;
     ByteBuffer buffer;
     final int STRING_SIZE;
     final int TOTAL_SIZE;

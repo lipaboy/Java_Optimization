@@ -17,12 +17,12 @@ import java.util.ArrayList;
  * Created by castiel on 13.12.2017.
  */
 public class MyStarter {
-    static private final Logger log = Logger.getLogger(MyStarter.class.getName());
+   // static private final Logger log = Logger.getLogger(MyStarter.class.getName());
 
     static final int STRING_SIZE = 77;
-    private static final long __TOTAL_SIZE = 1024 * 1024 * 512 * 4L - 2;
-                                                //100 *  STRING_SIZE;
-                                           // 1024;
+    private static final long __TOTAL_SIZE = //1024 * 1024 * 512 * 4L - 2;
+                                               // 1024 *  STRING_SIZE;
+                                            1024;
     private static final int LITTLE_SIZE = (int) __TOTAL_SIZE % STRING_SIZE;
     private static final int TOTAL_SIZE = (int) (__TOTAL_SIZE - LITTLE_SIZE);
 
@@ -50,7 +50,7 @@ public class MyStarter {
 
     public MyStarter() {}
 
-    public void start(String inputPath, String outputPath) throws IOException {
+    public void start(String inputPath, String outputPath, int threadCount) throws IOException {
         LocalTime startTime = LocalTime.now();
         FileChannel outputChannel;
         RandomAccessFile inputFile = new RandomAccessFile(inputPath, "rw");
@@ -69,7 +69,7 @@ public class MyStarter {
             Files.deleteIfExists(Paths.get(tempFilenames[i]));
             tempChannels.set(i, new RandomAccessFile(tempFilenames[i], "rw").getChannel());
 
-            new CombSorter(buffer, STRING_SIZE, partitionSizes[i], 2).sort();
+            new CombSorter(buffer, STRING_SIZE, partitionSizes[i], threadCount).sort();
             tempChannels.get(i).write(buffer);
 
             currentPosition += partitionSizes[i];
@@ -133,8 +133,8 @@ public class MyStarter {
         outputChannel.close();
 
 
-        for (int i = 0; i < PARTITION_COUNT; i++)
-            Files.delete(Paths.get(tempFilenames[i]));
+        //for (int i = 0; i < PARTITION_COUNT; i++)
+            //Files.delete(Paths.get(tempFilenames[i]));
 
         System.out.println("Whole time = " + ChronoUnit.MILLIS.between(startTime, LocalTime.now()) + "ms.");
     }
